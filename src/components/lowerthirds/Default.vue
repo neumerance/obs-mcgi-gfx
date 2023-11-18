@@ -1,4 +1,7 @@
 <script setup>
+  import lowerthirdStore from '../../stores/lowerthirdStore'
+
+  const store = lowerthirdStore();
 </script>
 
 <style lang="scss" scoped>
@@ -106,16 +109,16 @@
     <div class="lowerthirds__bar justify-right">
       <div class="lowerthirds__blue-upper-bar slanted">
         <div class="lowerthirds__title">
-          Worship Service
+          {{ store.title }}
         </div>
         <div class="lowerthirds__yellow-bar">
           <div class="lowerthirds__subtitle">
-            Not Intended for broadcast
+            {{ store.subTitle }}
           </div>
           <div class="lowerthirds__light-orange-bar slanted">
             <div class="lowerthirds__orange-bar slanted">
               <div class="lowerthirds__date">
-                November, 9, 2023
+                {{ store.currentDate }}
               </div>
             </div>
           </div>
