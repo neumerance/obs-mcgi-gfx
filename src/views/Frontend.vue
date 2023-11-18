@@ -1,8 +1,9 @@
 <script setup>
+  import Default from '../components/lowerthirds/Default.vue'
 </script>
 
 <template>
   <main>
-    <h1>Frontend</h1>
+    <Default />
   </main>
 </template>

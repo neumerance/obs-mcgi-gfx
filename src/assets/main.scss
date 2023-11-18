@@ -1,1 +1,12 @@
 @import './node_modules/bulma/bulma.sass';
+@import '../assets/gotham/stylesheet.css';
+
+html, body, main {
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  background: transparent;
+  display: flex;
+  font-family: 'Gotham';
+}
