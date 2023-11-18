@@ -4,24 +4,36 @@ import { defineStore } from 'pinia'
 const useLowerthirdStore = defineStore('lowerthirds', () => {
   const title = ref('worship service')
   const subTitle = ref('not intended for broadcast')
+  const titleFontSize = ref(2.4)
+  const subTitleFontSize = ref(1.1)
   const currentDate = computed(() => {
     const format = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date().toLocaleDateString("en-US", format)
   })
 
-  function onTitleChange(value) {
-    title.value = value
+  const onTitleChange = (value) => {
+    titleFontSize = value
   }
-  function onSubTitleChange(value) {
-    title.subTitle = value
+  const onTitleFontSizeChange = (value) => {
+    titleFontSize = value
+  }
+  const onSubTitleChange = (value) => {
+    subTitle = value
+  }
+  const onSubTitleFontSizeChange = (value) => {
+    subTitleFontSize = value
   }
 
   return {
     title,
+    titleFontSize,
     subTitle,
+    subTitleFontSize,
     currentDate,
     onTitleChange,
-    onSubTitleChange
+    onTitleFontSizeChange,
+    onSubTitleChange,
+    onSubTitleFontSizeChange
   }
 })
 
