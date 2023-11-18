@@ -1,7 +1,15 @@
 <script setup>
+  import { computed } from 'vue'
   import lowerthirdStore from '../../stores/lowerthirdStore'
+  import lowerThirdChannel from '../../channels/lowerthirdChannel'
 
-  const store = lowerthirdStore();
+  const store = lowerthirdStore()
+  lowerThirdChannel(store).listen()
+
+  const currentDate = computed(() => {
+    const format = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date().toLocaleDateString("en-US", format)
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -13,7 +21,7 @@
 
   &__title {
     font-weight: 700;
-    font-size: 2.4vw;
+    font-size: 6vh;
     text-align: center;
     text-transform: uppercase;
     color: #FFFFFF;
@@ -29,7 +37,7 @@
     position: absolute;
     left: 0;
     font-weight: 700;
-    font-size: 1.1vw;
+    font-size: 3vh;
     text-transform: uppercase;
     color: rgb(28, 99, 221);
     width: 518px;
@@ -44,7 +52,7 @@
     position: absolute;
     left: 0;
     font-weight: 700;
-    font-size: 1.1vw;
+    font-size: 3vh;
     text-transform: uppercase;
     color: #FFFFFF;
     width: 362px;
@@ -108,17 +116,20 @@
   <div class="lowerthirds">
     <div class="lowerthirds__bar justify-right">
       <div class="lowerthirds__blue-upper-bar slanted">
-        <div class="lowerthirds__title">
+        <div class="lowerthirds__title" :style="{ 'font-size': `${store.titleFontSize}vh` }">
           {{ store.title }}
         </div>
         <div class="lowerthirds__yellow-bar">
-          <div class="lowerthirds__subtitle">
+          <div
+            class="lowerthirds__subtitle"
+            :style="{ 'font-size': `${store.subTitleFontSize}vh`, 'line-height': `${store.subTitleFontSize}vh` }"
+          >
             {{ store.subTitle }}
           </div>
           <div class="lowerthirds__light-orange-bar slanted">
             <div class="lowerthirds__orange-bar slanted">
               <div class="lowerthirds__date">
-                {{ store.currentDate }}
+                {{ currentDate }}
               </div>
             </div>
           </div>

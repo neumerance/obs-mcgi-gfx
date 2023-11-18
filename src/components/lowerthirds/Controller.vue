@@ -1,27 +1,29 @@
 <script setup>
-  import { computed, reactive, watch } from 'vue';
-  import useLowerthirdStore from '../../stores/lowerthirdStore';
+  import { computed, reactive, ref, watch } from 'vue';
+  import useLowerthirdStore from '../../stores/lowerthirdStore'
+  import lowerThirdChannel from '../../channels/lowerthirdChannel'
+
   const store = useLowerthirdStore();
+  const title = ref(store.title)
+  const titleFontSize = ref(store.titleFontSize)
+  const subTitle = ref(store.subTitle)
+  const subTitleFontSize = ref(store.subTitleFontSize)
 
-  const data = reactive({
-    title: store.title,
-    titleFontSize: store.titleFontSize,
-    subTitle: store.subTitle,
-    subTitleFontSize: store.subTitleFontSize
+  watch(title, () => {
+    store.onChange('title', title);
+    lowerThirdChannel(store).post({ field: 'title', content: title.value });
   })
-
-  watch(data.title, (value) => {
-    console.log("newValue", value);
-    store.onTitleChange(value);
+  watch(titleFontSize, () => {
+    store.onChange('titleFontSize', titleFontSize);
+    lowerThirdChannel(store).post({ field: 'titleFontSize', content: titleFontSize.value });
   })
-  watch(data.titleFontSize, (value) => {
-    store.onTitleFontSizeChange(value);
+  watch(subTitle, () => {
+    store.onChange('subTitle', subTitle);
+    lowerThirdChannel(store).post({ field: 'subTitle', content: subTitle.value });
   })
-  watch(data.subTitle, (value) => {
-    store.onSubTitleChange(value);
-  })
-  watch(data.subTitleFontSize, (value) => {
-    store.onSubTitleFontSizeChange(value);
+  watch(subTitleFontSize, () => {
+    store.onChange('subTitleFontSize', subTitleFontSize);
+    lowerThirdChannel(store).post({ field: 'subTitleFontSize', content: subTitleFontSize.value });
   })
 </script>
 <style lang="scss" scoped>
@@ -43,18 +45,18 @@
     <h2 class="is-size-5 mb-2">Lowerthirds</h2>
     <div class="field mr-1 mb-1 is-flex">
       <div class="control mr-1 controller__title">
-        <input class="input is-small" type="text" placeholder="Title" v-model="data.title">
+        <input class="input is-small" type="text" placeholder="Title" v-model="title">
       </div>
       <div class="control controller__title-font">
-        <input class="input is-small" type="number" min="2.4" step="0.01" v-model="data.titleFontSize">
+        <input class="input is-small" type="number" min="2.4" step="0.01" v-model="titleFontSize">
       </div>
     </div>
     <div class="field mr-1 mb-1 is-flex">
       <div class="control mr-1 controller__sub-title">
-        <input class="input is-small" type="text" placeholder="Sub-title" v-model="data.subTitle">
+        <input class="input is-small" type="text" placeholder="Sub-title" v-model="subTitle">
       </div>
       <div class="control controller__sub-title-font">
-        <input class="input is-small" type="number" min="1.1" step="0.01" v-model="data.subTitleFontSize">
+        <input class="input is-small" type="number" min="1.1" step="0.01" v-model="subTitleFontSize">
       </div>
     </div>
     <div class="field mr-1 mb-1 controller__is-active">
