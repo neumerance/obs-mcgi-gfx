@@ -1,7 +1,8 @@
 <script setup>
-  import { computed } from 'vue'
+  import { computed, watch  } from 'vue'
   import lowerthirdStore from '../../stores/lowerthirdStore'
   import lowerThirdChannel from '../../channels/lowerthirdChannel'
+  import animation from '../../animations/lowerthirds/default'
 
   const store = lowerthirdStore()
   lowerThirdChannel(store).listen()
@@ -9,6 +10,15 @@
   const currentDate = computed(() => {
     const format = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date().toLocaleDateString("en-US", format)
+  })
+  const showLowerThird = computed(() => store.showLowerThird)
+
+  watch(showLowerThird, (value) => {
+    if (value) {
+      animation.intro()
+    } else {
+      animation.outro()
+    }
   })
 </script>
 
@@ -19,6 +29,15 @@
   width: 100%;
   justify-content: flex-end;
 
+  &__top {
+    width: 1280px;
+    height: 109px;
+    max-height: 109px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: -40px;
+  }
+
   &__title {
     font-weight: 700;
     font-size: 6vh;
@@ -28,9 +47,19 @@
     height: 70px;
     max-height: 70px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+
+    &--text {
+      width: 100%;
+      height: 70px;
+      max-height: 70px;
+      line-height: 70px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: -70px;
+    }
   }
 
   &__subtitle {
@@ -43,9 +72,18 @@
     width: 518px;
     height: 39px;
     max-height: 39px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+
+    &--text {
+      width: 100%;
+      height: 39px;
+      max-height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -39px;
+    }
   }
 
   &__date {
@@ -63,43 +101,53 @@
     align-items: center;
   }
 
-  &__blue-upper-bar {
+  &__top-bar {
     background: linear-gradient(180deg,#0085FF 0%, rgb(26, 102, 222) 100%);
     height: 109px;
     width: 880px;
     margin-bottom: -39px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    position: absolute;
+    right: -880px;
   }
 
-  &__yellow-bar {
+  &__middle-bar {
     background: rgba(255, 231, 33, 1);
     height: 39px;
     width: 100%;
-    position: relative;
-  }
-
-  &__orange-bar {
-    background: rgba(231, 131, 0, 1);
-    height: 39px;
-    width: 342px;
     position: absolute;
-    right: 0px;
+    right: -880px;
   }
 
-  &__light-orange-bar {
+  &__middle-sub-bar {
     background: rgba(241, 178, 16, 1);
     height: 39px;
     width: 362px;
     position: absolute;
-    right: 0px;
+    right: -362px;
   }
 
-  &__blue-bottom-bar {
+  &__middle-date-bar  {
+    background: rgba(231, 131, 0, 1);
+    height: 39px;
+    width: 342px;
+    position: absolute;
+    right: -342px;
+  }
+
+  &__bottom {
+    height: 61px;
+    max-height: 61px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__bottom-bar {
     background: linear-gradient(92deg, #70CBFF 0%, #7098FF 100%);
     height: 61px;
     width: 100%;
+    position: absolute;
+    bottom: -61px;
+    z-index: -1;
   }
 }
 .justify-right {
@@ -114,20 +162,24 @@
 
 <template>
   <div class="lowerthirds">
-    <div class="lowerthirds__bar justify-right">
-      <div class="lowerthirds__blue-upper-bar slanted">
-        <div class="lowerthirds__title" :style="{ 'font-size': `${store.titleFontSize}vh` }">
-          {{ store.title }}
-        </div>
-        <div class="lowerthirds__yellow-bar">
-          <div
-            class="lowerthirds__subtitle"
-            :style="{ 'font-size': `${store.subTitleFontSize}vh`, 'line-height': `${store.subTitleFontSize}vh` }"
-          >
-            {{ store.subTitle }}
+    <div class="lowerthirds__top justify-right">
+      <div class="lowerthirds__top-bar slanted">
+        <div class="lowerthirds__title">
+          <div class="lowerthirds__title--text" :style="{ 'font-size': `${store.titleFontSize}vh` }">
+            {{ store.title }}
           </div>
-          <div class="lowerthirds__light-orange-bar slanted">
-            <div class="lowerthirds__orange-bar slanted">
+        </div>
+        <div class="lowerthirds__middle-bar">
+          <div class="lowerthirds__subtitle">
+            <div
+              class="lowerthirds__subtitle--text"
+              :style="{ 'font-size': `${store.subTitleFontSize}vh`, 'line-height': `${store.subTitleFontSize}vh` }"
+            >
+              {{ store.subTitle }}
+            </div>
+          </div>
+          <div class="lowerthirds__middle-sub-bar slanted">
+            <div class="lowerthirds__middle-date-bar slanted">
               <div class="lowerthirds__date">
                 {{ currentDate }}
               </div>
@@ -136,8 +188,8 @@
         </div>
       </div>
     </div>
-    <div class="lowerthirds__bar">
-      <div class="lowerthirds__blue-bottom-bar"></div>
+    <div class="lowerthirds__bottom">
+      <div class="lowerthirds__bottom-bar"></div>
     </div>
   </div>
 </template>

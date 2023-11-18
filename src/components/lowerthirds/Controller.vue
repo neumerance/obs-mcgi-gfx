@@ -1,5 +1,5 @@
 <script setup>
-  import { computed, reactive, ref, watch } from 'vue';
+  import { ref, watch } from 'vue';
   import useLowerthirdStore from '../../stores/lowerthirdStore'
   import lowerThirdChannel from '../../channels/lowerthirdChannel'
 
@@ -8,22 +8,27 @@
   const titleFontSize = ref(store.titleFontSize)
   const subTitle = ref(store.subTitle)
   const subTitleFontSize = ref(store.subTitleFontSize)
+  const showLowerThird = ref(store.showLowerThird)
 
-  watch(title, () => {
-    store.onChange('title', title);
-    lowerThirdChannel(store).post({ field: 'title', content: title.value });
+  watch(title, (value) => {
+    store.onChange('title', value);
+    lowerThirdChannel(store).post({ field: 'title', content: value });
   })
-  watch(titleFontSize, () => {
-    store.onChange('titleFontSize', titleFontSize);
-    lowerThirdChannel(store).post({ field: 'titleFontSize', content: titleFontSize.value });
+  watch(titleFontSize, (value) => {
+    store.onChange('titleFontSize', value);
+    lowerThirdChannel(store).post({ field: 'titleFontSize', content: value });
   })
   watch(subTitle, () => {
-    store.onChange('subTitle', subTitle);
-    lowerThirdChannel(store).post({ field: 'subTitle', content: subTitle.value });
+    store.onChange('subTitle', value);
+    lowerThirdChannel(store).post({ field: 'subTitle', content: value });
   })
-  watch(subTitleFontSize, () => {
-    store.onChange('subTitleFontSize', subTitleFontSize);
-    lowerThirdChannel(store).post({ field: 'subTitleFontSize', content: subTitleFontSize.value });
+  watch(subTitleFontSize, (value) => {
+    store.onChange('subTitleFontSize', value);
+    lowerThirdChannel(store).post({ field: 'subTitleFontSize', content: value });
+  })
+  watch(showLowerThird, (value) => {
+    store.onChange('showLowerThird', value);
+    lowerThirdChannel(store).post({ field: 'showLowerThird', content: value });
   })
 </script>
 <style lang="scss" scoped>
@@ -61,7 +66,7 @@
     </div>
     <div class="field mr-1 mb-1 controller__is-active">
       <label class="checkbox">
-        <input type="checkbox">
+        <input type="checkbox" v-model="showLowerThird">
         Active?
       </label>
     </div>

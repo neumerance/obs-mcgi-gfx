@@ -8,7 +8,8 @@ const useLowerthirdStore = defineStore({
       title: ref('worship service'),
       subTitle: ref('not intended for broadcast'),
       titleFontSize: ref(6),
-      subTitleFontSize: ref(3)
+      subTitleFontSize: ref(3),
+      showLowerThird: false
     }
   },
   actions: {
