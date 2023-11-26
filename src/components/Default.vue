@@ -1,13 +1,17 @@
 <script setup>
   import { computed } from 'vue'
-  import lowerthirdStore from '../../stores/lowerthirdStore'
+  import lowerthirdStore from '../stores/lowerthirdStore'
+  import lowerthirdAnimation from '../animations/lowerthirds/default'
 
   const store = lowerthirdStore()
-
   const currentDate = computed(() => {
     const format = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date().toLocaleDateString("en-US", format)
   })
+
+  defineExpose({
+    lowerthirdAnimation
+  });
 </script>
 
 <style lang="scss" scoped>

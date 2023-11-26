@@ -1,7 +1,6 @@
 <script setup>
-  import { watch, computed } from 'vue'
-  import Default from '../components/lowerthirds/Default.vue'
-  import animation from '../animations/lowerthirds/default'
+  import { watch, computed, ref } from 'vue'
+  import Default from '../components/Default.vue'
   import lowerthirdStore from '../stores/lowerthirdStore'
   import lowerThirdChannel from '../channels/lowerthirdChannel'
 
@@ -9,17 +8,23 @@
   const showLowerThird = computed(() => store.showLowerThird)
   lowerThirdChannel(store).listen()
 
+  const layouts = {
+    default: Default
+  }
+  const layout = computed(() => layouts[store.layout])
+  const currentRenderedLayout = ref(null)
+
   watch(showLowerThird, (value) => {
     if (value) {
-      animation.intro()
+      currentRenderedLayout.value.lowerthirdAnimation.intro()
     } else {
-      animation.outro()
+      currentRenderedLayout.value.lowerthirdAnimation.outro()
     }
   })
 </script>
 
 <template>
   <main>
-    <Default />
+    <component :is="layout" ref="currentRenderedLayout" />
   </main>
 </template>

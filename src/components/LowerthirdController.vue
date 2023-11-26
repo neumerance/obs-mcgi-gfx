@@ -1,7 +1,7 @@
 <script setup>
   import { ref, watch } from 'vue';
-  import useLowerthirdStore from '../../stores/lowerthirdStore'
-  import lowerThirdChannel from '../../channels/lowerthirdChannel'
+  import useLowerthirdStore from '../stores/lowerthirdStore'
+  import lowerThirdChannel from '../channels/lowerthirdChannel'
 
   const store = useLowerthirdStore();
   const title = ref(store.title)

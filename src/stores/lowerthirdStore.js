@@ -9,7 +9,8 @@ const useLowerthirdStore = defineStore({
       subTitle: ref('not intended for broadcast'),
       titleFontSize: ref(6),
       subTitleFontSize: ref(3),
-      showLowerThird: false
+      showLowerThird: false,
+      layout: 'default'
     }
   },
   actions: {

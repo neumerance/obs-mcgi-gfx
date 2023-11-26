@@ -1,11 +1,11 @@
 <script setup>
-  import LowerThirdController from '../components/lowerthirds/Controller.vue'
+  import LowerthirdController from '../components/LowerthirdController.vue'
 </script>
 <style lang="scss" scoped>
   main { background: #181717; }
 </style>
 <template>
   <main>
-    <LowerThirdController />
+    <LowerthirdController />
   </main>
 </template>
