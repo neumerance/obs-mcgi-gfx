@@ -1,24 +1,12 @@
 <script setup>
-  import { computed, watch  } from 'vue'
+  import { computed } from 'vue'
   import lowerthirdStore from '../../stores/lowerthirdStore'
-  import lowerThirdChannel from '../../channels/lowerthirdChannel'
-  import animation from '../../animations/lowerthirds/default'
 
   const store = lowerthirdStore()
-  lowerThirdChannel(store).listen()
 
   const currentDate = computed(() => {
     const format = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date().toLocaleDateString("en-US", format)
-  })
-  const showLowerThird = computed(() => store.showLowerThird)
-
-  watch(showLowerThird, (value) => {
-    if (value) {
-      animation.intro()
-    } else {
-      animation.outro()
-    }
   })
 </script>
 
