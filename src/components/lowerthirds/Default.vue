@@ -108,6 +108,57 @@
     margin-bottom: -39px;
     position: absolute;
     right: -880px;
+
+    &__glass-slides {
+      width: 100%;
+      height: 109px;
+      max-height: 109px;
+      top: 0;
+      position: absolute;
+      overflow: hidden;
+
+      div {
+        background: rgba(255, 255, 255, 0.4);
+        top: 0;
+        position: absolute;
+        z-index: 1;
+      }
+
+      &--left-lg {
+        left: -130px;
+      }
+      &--left-md {
+        left: -110px;
+      }
+      &--left-sm {
+        left: -90px;
+      }
+      &--right-lg {
+        right: -130px;
+      }
+      &--right-md {
+        right: -110px;
+      }
+      &--right-sm {
+        right: -90px;
+      }
+
+      &-lg {
+        width: 130px;
+        height: 109px;
+        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+      }
+      &-md {
+        width: 110px;
+        height: 109px;
+        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+      }
+      &-sm {
+        width: 90px;
+        height: 109px;
+        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+      }
+    }
   }
 
   &__middle-bar {
@@ -164,6 +215,14 @@
   <div class="lowerthirds">
     <div class="lowerthirds__top justify-right">
       <div class="lowerthirds__top-bar slanted">
+        <div class="lowerthirds__top-bar__glass-slides">
+          <div class="slide_1 lowerthirds__top-bar__glass-slides-lg lowerthirds__top-bar__glass-slides--left-lg"></div>
+          <div class="slide_2 lowerthirds__top-bar__glass-slides-md lowerthirds__top-bar__glass-slides--left-md"></div>
+          <div class="slide_3 lowerthirds__top-bar__glass-slides-md lowerthirds__top-bar__glass-slides--left-md"></div>
+          <div class="slide_4 lowerthirds__top-bar__glass-slides-sm lowerthirds__top-bar__glass-slides--left-sm"></div>
+          <div class="slide_5 lowerthirds__top-bar__glass-slides-md lowerthirds__top-bar__glass-slides--right-md"></div>
+          <div class="slide_6 lowerthirds__top-bar__glass-slides-sm lowerthirds__top-bar__glass-slides--right-sm"></div>
+        </div>
         <div class="lowerthirds__title">
           <div class="lowerthirds__title--text" :style="{ 'font-size': `${store.titleFontSize}vh` }">
             {{ store.title }}

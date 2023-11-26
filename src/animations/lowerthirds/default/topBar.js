@@ -1,6 +1,7 @@
 import anime from 'animejs'
+import glassSlide from './glassSlide'
 
-const blueTopBar = () => {
+const topBar = () => {
   return {
     intro: (delay = 0) => {
       anime({
@@ -8,10 +9,14 @@ const blueTopBar = () => {
         right: '0px',
         easing: 'easeOutQuart',
         duration: 800,
-        delay: delay
+        delay: delay,
+        changeComplete: () => {
+          glassSlide().intro()
+        }
       })
     },
     outro: (delay = 0) => {
+      glassSlide().outro()
       anime({
         targets: '.lowerthirds__top-bar',
         right: '-880px',
@@ -23,4 +28,4 @@ const blueTopBar = () => {
   }
 }
 
-export default blueTopBar;
+export default topBar;

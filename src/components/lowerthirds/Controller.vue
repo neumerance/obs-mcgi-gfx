@@ -18,7 +18,7 @@
     store.onChange('titleFontSize', value);
     lowerThirdChannel(store).post({ field: 'titleFontSize', content: value });
   })
-  watch(subTitle, () => {
+  watch(subTitle, (value) => {
     store.onChange('subTitle', value);
     lowerThirdChannel(store).post({ field: 'subTitle', content: value });
   })
